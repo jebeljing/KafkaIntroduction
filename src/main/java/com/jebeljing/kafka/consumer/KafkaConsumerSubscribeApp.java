@@ -1,9 +1,8 @@
-package consumer;
+package com.jebeljing.kafka.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.TopicPartition;
 
 import java.util.ArrayList;
 import java.util.Properties;
@@ -11,7 +10,8 @@ import java.util.Properties;
 /**
  * Created by jingshanyin on 7/26/17.
  */
-public class KafkaConsumerAssignApp {
+public class KafkaConsumerSubscribeApp {
+
     public static void main(String[] args) {
         //Create a properties dictionary for the required/optional Producer config settings:
         Properties props = new Properties();
@@ -24,12 +24,10 @@ public class KafkaConsumerAssignApp {
 
         KafkaConsumer myConsumer = new KafkaConsumer(props);
 
-        ArrayList<TopicPartition> partitions = new ArrayList<TopicPartition>();
-        TopicPartition myTopicPart0 = new TopicPartition("mytopic", 0);
-        TopicPartition myOtherTopicPart2 = new TopicPartition("myothertopic", 2);
-        partitions.add(myTopicPart0);
-        partitions.add(myOtherTopicPart2);
-        myConsumer.assign(partitions);
+        ArrayList<String> topics = new ArrayList<String>();
+        topics.add("mytopic");
+        topics.add("myothertopic");
+        myConsumer.subscribe(topics);
 
         try {
             while (true) {
